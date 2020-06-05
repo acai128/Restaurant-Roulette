@@ -7,22 +7,25 @@ db = SQLAlchemy()
 
 class User(db.Model): 
 
-    __table__name = "users"
+    __tablename__ = "users"
 
     user_id = db.Column(db.Integer, 
                 autoincrement = True, 
                 primary_key = True)
     fname = db.Column(db.String, nullable = False)
     lname = db.Column(db.String, nullable = False)
+    password = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable= False)
+
 
     def __repr__(self): 
 
         return f'<User user_id={self.user_id} fname={self.fname}\
-            lname={self.lname}>'
+            lname={self.lname} password={self.password} email={self.email}>'
 
 class Favorite(db.Model): 
 
-    __table__name = "favorites"
+    __tablename__ = "favorites"
 
     favorite_id = db.Column(db.Integer, 
                 autoincrement = True, 
@@ -45,7 +48,7 @@ def __repr__(self):
 
 class Restaurant(db.Model): 
 
-    __table__name = "restaurants"
+    __tablename__ = "restaurants"
 
 
     restaurant_id = db.Column(db.Integer, 
@@ -54,29 +57,33 @@ class Restaurant(db.Model):
     name = db.Column(db.String, nullable = False)
     address = db.Column(db.String, nullable = False)
     phone = db.Column(db.Integer, nullable = False)
-    delivery = db.Column(db.Boolean, nullable = False)
+    transaction = db.Column(db.Boolean, nullable = False)
+    url = db.Column(db.String)
+    image_url = db.Column(db.String)
 
 def __repr__(self): 
 
     return f'<Restaurant restaurant_id={self.restaurant_id} name={self.name}\
-    address={self.address} phone={self.phone} delivery={self.delivery}>'
+    address={self.address} phone={self.phone} transaction={self.transaction}\
+    url={self.url} image_url={self.image_url}>'
 
 ##############################################################################
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(flask_app, db_uri='postgresql:///restaurant', echo=True):
+
     """Connect the database to our Flask app."""
 
-    # Configure to use our database.
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgres:///restaurant"
-    app.config["SQLALCHEMY_ECHO"] = False
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.app = app
-    db.init_app(app)
+    # Configure to use our database
 
-    with app.app_context():
-        db.create_all()
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = False
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.app = flask_app
+    db.init_app(flask_app)
 
+    #db.create_all()
+    print('connected to db')
 
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
