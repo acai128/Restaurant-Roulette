@@ -14,13 +14,13 @@ def create_user(fname, lname, password, email):
 
     return user
 
-def create_favorite(name, address, phone, transaction, url, image_url): 
+def create_favorite(name, display_address, display_phone, transactions, url, image_url): 
     """Create and return a new favorite"""
 
     favorite = Favorite(name=name, 
-                address=address, 
-                phone=phone, 
-                transaction=transaction,
+                display_address=display_address, 
+                display_phone=display_phone, 
+                transactions=transactions,
                 url=url,
                 image_url=image_url)
 
@@ -33,13 +33,13 @@ def get_Favorites():
     """Return all favorites on list"""
     return Favorite.query.all()
 
-def get_restaurant(name, address, phone, transaction, url, image_url): 
+def get_restaurant(name, display_address, display_phone, transactions, url, image_url): 
     """Create and return a new rating"""
 
     restaurant = Restaurant(name=name, 
-                address=address, 
-                phone=phone, 
-                transaction=transaction,
+                display_address=display_address, 
+                display_phone=display_phone, 
+                transactions=transactions,
                 url=url,
                 image_url=image_url)
 

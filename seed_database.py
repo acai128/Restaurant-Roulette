@@ -3,7 +3,6 @@
 import os
 import json
 from random import choice, randint
-from datetime import datetime
 
 import crud
 import model
@@ -15,7 +14,7 @@ os.system('createdb ratings')
 model.connect_to_db(server.app)
 model.db.create_all()
 
-# Load movie data from JSON file
+# Load restaurant data from JSON file
 with open('data/restaurants.json') as f:
     restaurant_data = json.loads(f.read())
 
@@ -23,19 +22,19 @@ with open('data/restaurants.json') as f:
 # to create fake restaurant lists
 restaurants_in_db = []
 for restaurant in restaurant_data['businesses']:
-    name, address, phone, transaction, url, image_url = \
+    name, display_address, display_phone, transactions, url, image_url = \
                                     (restaurant['name'],
-                                    restaurant['location'],
-                                    restaurant['phone'],
+                                    restaurant['location']['display_address'],
+                                    restaurant['display_phone'],
                                     restaurant['transactions'],
                                     restaurant['url'],
                                     restaurant['image_url'])
 
 
-    db_movie = crud.get_restaurant(name,
-                                 address,
-                                 phone,
-                                 transaction,
+    db_restaurant = crud.get_restaurant(name,
+                                 display_address,
+                                 display_phone,
+                                 transactions,
                                  url,
                                  image_url)
     restaurants_in_db.append(db_restaurant)

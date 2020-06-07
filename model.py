@@ -55,17 +55,17 @@ class Restaurant(db.Model):
                 autoincrement = True, 
                 primary_key = True)
     name = db.Column(db.String, nullable = False)
-    address = db.Column(db.String, nullable = False)
-    phone = db.Column(db.Integer, nullable = False)
-    transaction = db.Column(db.Boolean, nullable = False)
-    url = db.Column(db.String)
-    image_url = db.Column(db.String)
+    display_address = db.Column(db.String, nullable = False)
+    display_phone = db.Column(db.String, nullable = False)
+    transactions = db.Column(db.Boolean, nullable = False)
+    url = db.Column(db.String, nullable = False)
+    image_url = db.Column(db.String, nullable = False)
 
 def __repr__(self): 
 
     return f'<Restaurant restaurant_id={self.restaurant_id} name={self.name}\
-    address={self.address} phone={self.phone} transaction={self.transaction}\
-    url={self.url} image_url={self.image_url}>'
+    display_address={self.display_address} display_phone={self.display_phone} \
+    transactions={self.transactions} url={self.url} image_url={self.image_url}>'
 
 ##############################################################################
 # Helper functions
