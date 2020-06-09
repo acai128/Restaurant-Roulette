@@ -33,14 +33,14 @@ def get_restaurant():
     print(location)
 
     url = 'https://api.yelp.com/v3/businesses/search'
-    # HEADERS = {'Authorization': 'bearer %s' % YELP_KEY}
+    headers = {'Authorization': 'Bearer %s' % API_KEY}
 
     #Define the parameters 
-    payload= {'location': location,
-            'Authorization': Bearer <vGzOs92hxa6YelsbG2GMSe8mpog_T4O4mizIRa7spW06cU_k8ES4UjSTYHmzKHAHjZyNx79p9N2oQ1aOeQ4f6Rzxc_PbjUbpncbQNCo8Tm2jRwS9_FhOhZxKIK3BXnYx>}
+    payload= {'location': location}
+            # 'Authorization': Bearer <vGzOs92hxa6YelsbG2GMSe8mpog_T4O4mizIRa7spW06cU_k8ES4UjSTYHmzKHAHjZyNx79p9N2oQ1aOeQ4f6Rzxc_PbjUbpncbQNCo8Tm2jRwS9_FhOhZxKIK3BXnYx>}
     #Make the request to the yelp API 
 
-    response = requests.get(url, params=payload)
+    response = requests.get('GET', url, headers=headers, params=payload)
 
     #convert JSON string to a dictionary 
     data = response.json()
