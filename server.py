@@ -8,6 +8,7 @@ from jinja2 import StrictUndefined
 import os
 import requests 
 from pprint import pformat
+import json
 
 
 
@@ -25,38 +26,60 @@ def homepage():
 
     return render_template("index.html")
 
-
-@app.route('/restaurant_result', methods = ['GET','POST'])
+@app.route('/restaurant_result', methods = ['GET'])
 def get_restaurant(): 
     """Show homepage and display random restaurant result"""
-    location = request.form.get('location')
-    print(location)
+    get_location = request.form.get('location')
 
+    api_key = 'g3qgKeAPXG6wglXFjK6bujzTAb3enURngk2_5rRl48H5tyTEzeC5g71L8n--IEM0lonrF4mEXeOHwaHZizgm-_o_vvABicAxZZZTRDXP9dd0eTxU5tnqPPwkLPveXnYx'
+    headers = {'Authorization': 'Bearer %s' % api_key}
+     
     url = 'https://api.yelp.com/v3/businesses/search'
-    headers = {'Authorization': 'Bearer %s' % API_KEY}
+
+    params = {'term':'restaurant',
+                'location': 'location'}
+     
+    req = requests.get(url, params=params, headers=headers)
+     
+    data = json.loads(req.text)
+     
+    businesses = data["businesses"]
+
+    return render_template('restaurant_result.html', pformat=pformat, data=data)
+
+
+# @app.route('/restaurant_result', methods = ['GET'])
+# def get_restaurant(): 
+    """Show homepage and display random restaurant result"""
+    # location = request.form.get('location')
+   
+    # api_key = API_KEY
+    # url = 'https://api.yelp.com/v3/businesses/search'
+    # headers = {'Authorization': 'Bearer %s' % API_KEY}
 
     #Define the parameters 
-    payload= {'location': location}
+    # params= {'term': 'restaurant',
+    #         'location': location}
             # 'Authorization': Bearer <vGzOs92hxa6YelsbG2GMSe8mpog_T4O4mizIRa7spW06cU_k8ES4UjSTYHmzKHAHjZyNx79p9N2oQ1aOeQ4f6Rzxc_PbjUbpncbQNCo8Tm2jRwS9_FhOhZxKIK3BXnYx>}
     #Make the request to the yelp API 
 
-    response = requests.get('GET', url, headers=headers, params=payload)
-
-    #convert JSON string to a dictionary 
-    data = response.json()
-    restaurant_results = data['businesses']
+    # req = requests.get(url, headers=headers, params=params)
+   
+    # convert JSON string to a dictionary 
+    # data = json.loads(req.text)
+    # businesses = data['businesses']
 
     # print(businesss_data)
 
-    for biz in restaurant_results: 
-            display_phone = biz['display_phone'], 
-            name = biz['name'], 
-            display_address = biz['location']['display_address'],
-            transactions = biz['transactions'], 
-            url = biz['url'], 
-            image_url = biz['image_url']
-            print(f'{restaurant_results}')
-    return render_template('restaurant_result.html', pformat=pformat, data=data)
+    # for biz in restaurant_results: 
+    #         display_phone = biz['display_phone'], 
+    #         name = biz['name'], 
+    #         display_address = biz['location']['display_address'],
+    #         transactions = biz['transactions'], 
+    #         url = biz['url'], 
+    #         image_url = biz['image_url']
+    #         print(f'{restaurant_results}')
+    # return render_template('restaurant_result.html', pformat=pformat, data=data)
 
 # def query_api(term, location):
 #     """Queries the API by the input values from the user.
