@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang ="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Restaurant Roulette</title>
-</head>
-<body>
-    <header class="header">
+{% extends 'base.html' %}
+
+{% block title %} Restaurant Roulette {% endblock %}
+{% block content %}
+
         <h1>Can't decide where to eat?</h1>
         <h2>Find a random restaurant near you!</h2>
-    </header>
 
-    <form method="GET" action="/">
-    Location <input type="text" name="location">
+    <form method="POST"/action="/restaurant_result">
+    Location <input id='location' type="text" name="location">
     <input type="submit">
     </form>
+
+{% endblock %}
 
    <!--  <h2>Create an Account</h2>
   <form action="/users" method="POST">
@@ -43,6 +40,7 @@
       <input type="submit">
     </p>
   </form> -->
-
+<!-- 
+ <script type="text/javascript"></script>
 </body>
-</html>
+</html> -->
