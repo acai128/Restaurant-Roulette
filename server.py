@@ -9,8 +9,14 @@ import os
 import requests 
 from pprint import pformat
 import json
+from config import Config
+#from forms import SearchForm
 
 
+from yelp_api import get_data
+import urllib.parse 
+from random import randint
+import random 
 
 app = Flask(__name__)
 app.secret_key = 'SECRET!'
@@ -19,93 +25,78 @@ app.jinja_env.undefined = StrictUndefined
 
 API_KEY = os.environ['YELP_KEY']
 
-
 @app.route('/')
 def homepage():
     """Show the homepage."""
 
     return render_template("index.html")
 
-@app.route('/restaurant_result', methods = ['GET'])
-def get_restaurant(): 
-    """Show homepage and display random restaurant result"""
-    get_location = request.form.get('location')
 
-    api_key = 'g3qgKeAPXG6wglXFjK6bujzTAb3enURngk2_5rRl48H5tyTEzeC5g71L8n--IEM0lonrF4mEXeOHwaHZizgm-_o_vvABicAxZZZTRDXP9dd0eTxU5tnqPPwkLPveXnYx'
-    headers = {'Authorization': 'Bearer %s' % api_key}
-     
+@app.route('/restaurant_result', methods = ['GET'])
+def get_restaurants(): 
+    """Show restuarnt results"""
+
+    location = request.args['location']
+    print(location)
+    print(type(location))
+
+
     url = 'https://api.yelp.com/v3/businesses/search'
 
+    api_key = API_KEY
+    headers = {'Authorization': 'Bearer %s' % api_key}
+     
     params = {'term':'restaurant',
-                'location': 'location'}
+            'location': location,
+            'limit': 10}
+ 
      
     req = requests.get(url, params=params, headers=headers)
      
-    data = json.loads(req.text)
-     
-    businesses = data["businesses"]
+    data = req.json()
+    print(data) 
 
-    return render_template('restaurant_result.html', pformat=pformat, data=data)
+    business_list = data['businesses']
+    business= random.choice(business_list)
+    # business = select.random(business_list)
 
 
-# @app.route('/restaurant_result', methods = ['GET'])
-# def get_restaurant(): 
-    """Show homepage and display random restaurant result"""
-    # location = request.form.get('location')
-   
-    # api_key = API_KEY
-    # url = 'https://api.yelp.com/v3/businesses/search'
-    # headers = {'Authorization': 'Bearer %s' % API_KEY}
+    # for biz in data['businesses']: 
+    #     if len(data) == 0: 
+    #         return None
+    #     elif len(data) < 30: 
+    #         i = random.randint(0, len(data) - 1)
+    #     else: 
+    #         i = random.randint(0,30)
+    #     return data[i]
+    #     print(data[i])
 
-    #Define the parameters 
-    # params= {'term': 'restaurant',
-    #         'location': location}
-            # 'Authorization': Bearer <vGzOs92hxa6YelsbG2GMSe8mpog_T4O4mizIRa7spW06cU_k8ES4UjSTYHmzKHAHjZyNx79p9N2oQ1aOeQ4f6Rzxc_PbjUbpncbQNCo8Tm2jRwS9_FhOhZxKIK3BXnYx>}
-    #Make the request to the yelp API 
+    # for biz in data['businesses']: 
+    #     display_phone = biz['display_phone'], 
+    #     name = biz['name'], 
+    #     display_address = biz['location']['display_address'],
+    #     transactions = biz['transactions'], 
+    #     url = biz['url'], 
+    #     image_url = biz['image_url']
+    #     print(f'{data}')
 
-    # req = requests.get(url, headers=headers, params=params)
-   
-    # convert JSON string to a dictionary 
-    # data = json.loads(req.text)
-    # businesses = data['businesses']
+    return render_template('restaurant_result.html', pformat=pformat, data=business)
 
-    # print(businesss_data)
+# @app.route('/restaurant_result/<location>/<term>')
+# def results(location = '', term = 'restaurant'):
+#     business = get_restaurants(location, term)
+#     if business == None:
+#         return redirect('/no-results')
+#     name = business['name']
+#     image = business['image_url']
+#     rating = business['rating']
+#     address = ' '.join(business['location']['display_address'])
+#     url = businesses['url']
 
-    # for biz in restaurant_results: 
-    #         display_phone = biz['display_phone'], 
-    #         name = biz['name'], 
-    #         display_address = biz['location']['display_address'],
-    #         transactions = biz['transactions'], 
-    #         url = biz['url'], 
-    #         image_url = biz['image_url']
-    #         print(f'{restaurant_results}')
-    # return render_template('restaurant_result.html', pformat=pformat, data=data)
+#     return render_template('restaurant_result.html', name=name, image=image,
+#     rating=rating, address=address, url=url )
 
-# def query_api(term, location):
-#     """Queries the API by the input values from the user.
-#     Args:
-#         term (str): The search term to query.
-#         location (str): The location of the business to query.
-#     """
-#     response = search(API_KEY, term, location)
 
-#     businesses = response.get('businesses')
-
-#     if not businesses:
-#         print(u'No businesses for {0} in {1} found.'.format(term, location))
-#         return
-
-#     business_id = businesses[0]['id']
-
-#     print(u'{0} businesses found, querying business info ' \
-#         'for the top result "{1}" ...'.format(
-#             len(businesses), business_id))
-#     response = get_business(API_KEY, business_id)
-
-#     print(u'Result for business "{0}" found:'.format(business_id))
-#     pprint.pprint(response, indent=2)
- 
-#     return render_template('restaurant_result.html')
 
 
 if __name__ == "__main__":
