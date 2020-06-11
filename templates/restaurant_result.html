@@ -6,10 +6,33 @@
 <a href="/" class="lead backlink">Go back to the search homepage</a>
 
     <h1>Random Result</h1> 
-    <pre>{{ pformat(data) }}</pre>
+<!--     <pre>{{ pformat(data) }}</pre>
+ -->
+    <div>
+        <h2> {{ name }} </h2>
+    </div>
+
+    <div>
+        <img src='{{ image }}'>
+    </div>
+
+    <div>
+        Rating: {{ rating }}
+    </div>
+
+    <div>
+        {{ address }}
+    </div>
+
+    <div>
+        {{ data['display_phone'] }}
+    </div>
+
+    <div>
+        <a href="{{ url }}" target='_blank'> {{ url }} </a>
+    </div>
 
 
-  
 
 
 {% endblock %}

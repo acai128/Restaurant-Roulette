@@ -60,6 +60,14 @@ def get_restaurants():
     business= random.choice(business_list)
     # business = select.random(business_list)
 
+    name = business['name']
+    # print(name)
+    image = business['image_url']
+    rating = business['rating']
+    address = ' '.join(business['location']['display_address'])
+    url = business['url']
+    phone = business['display_phone']
+
 
     # for biz in data['businesses']: 
     #     if len(data) == 0: 
@@ -80,7 +88,9 @@ def get_restaurants():
     #     image_url = biz['image_url']
     #     print(f'{data}')
 
-    return render_template('restaurant_result.html', pformat=pformat, data=business)
+    return render_template('restaurant_result.html', pformat=pformat, 
+                            data=business, name=name, image=image, 
+                            rating=rating, address=address, url=url)
 
 # @app.route('/restaurant_result/<location>/<term>')
 # def results(location = '', term = 'restaurant'):
