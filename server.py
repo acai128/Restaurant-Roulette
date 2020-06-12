@@ -4,12 +4,12 @@ import crud
 
 from jinja2 import StrictUndefined 
 
-#from model import connect_to_db, Restaurant
+from model import connect_to_db, Restaurant
 import os
 import requests 
 from pprint import pformat
 import json
-from config import Config
+# from config import Config
 #from forms import SearchForm
 
 
@@ -37,8 +37,8 @@ def get_restaurants():
     """Show restuarnt results"""
 
     location = request.args['location']
-    print(location)
-    print(type(location))
+    # print(location)
+    # print(type(location))
 
 
     url = 'https://api.yelp.com/v3/businesses/search'
@@ -67,6 +67,7 @@ def get_restaurants():
     address = ' '.join(business['location']['display_address'])
     url = business['url']
     phone = business['display_phone']
+    transactions = business['transactions']
 
 
     # for biz in data['businesses']: 
@@ -90,7 +91,43 @@ def get_restaurants():
 
     return render_template('restaurant_result.html', pformat=pformat, 
                             data=business, name=name, image=image, 
-                            rating=rating, address=address, url=url)
+                            rating=rating, address=address, url=url,
+                            transactions=transactions)
+
+
+@app.route('/users', methods=['POST'])
+def register_user():
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    result = crud.get_user_by_email(email)
+    print('hello', result)
+    if result: 
+
+        flash('Cannot create an account with that email. Try again.')
+    else:
+        user = crud.create_user(email, password)
+        print('created_user', user)
+        flash('Account created!')
+
+    return redirect('/')
+
+@app.route('/user_login')
+def login_user():
+    email = request.args.get("email")
+    password = request.args.get("password")
+
+    user = crud.get_user_by_email(email)
+
+    if user.password == password: 
+        flash('Logged In Successfully!')
+        session['user_id'] = user.user_id
+        print(session)
+
+        return redirect('/')
+    else:
+        flash('Log in fail!')
+        return redirect('/')
 
 # @app.route('/restaurant_result/<location>/<term>')
 # def results(location = '', term = 'restaurant'):

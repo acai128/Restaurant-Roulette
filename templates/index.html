@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %} Restaurant Roulette {% endblock %}
+
 {% block content %}
 
         <h1>Can't decide where to eat?</h1>
@@ -11,9 +12,8 @@
     <input type="submit">
     </form>
 
-{% endblock %}
 
-   <!--  <h2>Create an Account</h2>
+  <h2>Create an Account</h2>
   <form action="/users" method="POST">
     <p>
       Email <input type="text" name="email">
@@ -25,9 +25,11 @@
 
     <p>
       <input type="submit">
+    </p>
+    </form>  
 
 <h2>Log In</h2>
-  <form>
+  <form action="/user_login">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -39,8 +41,7 @@
     <p>
       <input type="submit">
     </p>
-  </form> -->
-<!-- 
- <script type="text/javascript"></script>
-</body>
-</html> -->
+  </form>
+
+  {% endblock %}
+

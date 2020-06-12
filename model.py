@@ -5,23 +5,37 @@ db = SQLAlchemy()
 
 #COMPOSE ORM 
 
-class User(db.Model): 
+# class User(db.Model): 
 
-    __tablename__ = "users"
+#     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, 
-                autoincrement = True, 
-                primary_key = True)
-    fname = db.Column(db.String, nullable = False)
-    lname = db.Column(db.String, nullable = False)
+#     user_id = db.Column(db.Integer, 
+#                 autoincrement = True, 
+#                 primary_key = True)
+#     fname = db.Column(db.String, nullable = False)
+#     lname = db.Column(db.String, nullable = False)
+#     password = db.Column(db.String)
+#     email = db.Column(db.String, unique=True, nullable= False)
+
+
+#     def __repr__(self): 
+
+#         return f'<User user_id={self.user_id} fname={self.fname}\
+#             lname={self.lname} password={self.password} email={self.email}>'
+
+class User(db.Model):
+    """A user."""
+
+    __tablename__ = 'users'
+
+    user_id = db.Column(db.Integer,
+                        autoincrement= True,
+                        primary_key=True)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
-    email = db.Column(db.String, unique=True, nullable= False)
 
-
-    def __repr__(self): 
-
-        return f'<User user_id={self.user_id} fname={self.fname}\
-            lname={self.lname} password={self.password} email={self.email}>'
+    def __repr__(self):
+        return f'<User user_id={self.user_id} email={self.email}>'
 
 class Favorite(db.Model): 
 

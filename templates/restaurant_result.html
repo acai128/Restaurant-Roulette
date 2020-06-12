@@ -5,7 +5,7 @@
 
 <a href="/" class="lead backlink">Go back to the search homepage</a>
 
-    <h1>Random Result</h1> 
+    <h1>Try this out!</h1> 
 <!--     <pre>{{ pformat(data) }}</pre>
  -->
     <div>
@@ -13,7 +13,7 @@
     </div>
 
     <div>
-        <img src='{{ image }}'>
+        <img src='{{ image }}' height = "400px" width = "auto">
     </div>
 
     <div>
@@ -29,10 +29,14 @@
     </div>
 
     <div>
-        <a href="{{ url }}" target='_blank'> {{ url }} </a>
+        <a href="{{ url }}" target='_blank'> Check out the reviews on Yelp! </a>
     </div>
 
+  <!--   <div>
+        {{ transactions }}
+    </div>
 
+ -->
 
 
 {% endblock %}

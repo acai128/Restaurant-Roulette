@@ -39,15 +39,15 @@ for restaurant in restaurant_data['businesses']:
                                  image_url)
     restaurants_in_db.append(db_restaurant)
 
-# Create 10 users; each user will make 10 ratings
+# Create 10 users; 
 for n in range(10):
     email = f'user{n}@test.com'  # Voila! A unique email!
     password = 'test'
 
     user = crud.create_user(email, password)
 
-    for _ in range(10):
-        random_restaurant = choice(restaurants_in_db)
-        score = randint(1, 5)
+    # for _ in range(10):
+    #     random_restaurant = choice(restaurants_in_db)
+    #     score = randint(1, 5)
 
-        crud.create_rating(user, random_movie, score)
+    #     crud.create_rating(user, random_movie, score)
