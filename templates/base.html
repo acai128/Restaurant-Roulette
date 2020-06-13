@@ -1,11 +1,55 @@
-<!DOCTYPE html>
+{# <!DOCTYPE html>
 <html>
 <head>
     <title></title>
     {% block title %} {% endblock %}
 </head>
 <body>
-  {% block content %} {% endblock %}
+  {% block content %}{% endblock %}
+</body>
+</html> #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <!-- The content from the other html files will be replaced to here -->
+    {% block content %}{% endblock %}
+
+    <ul>
+        {% for message in get_flashed_messages() %}
+            <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+
+
 </body>
 </html>
 
+
+<!-- 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>
+    </title>
+
+    {% block head %}hello{% endblock %}
+  </head>
+  <body>
+ {% for msg in get_flashed_messages() %}
+    <p class="flash-msg">
+      {{ msg }}
+    </p>
+    {% endfor %}
+    
+    {% block body %}{% endblock %}
+
+    {% block after_body %}{% endblock %}
+  </body>
+</html> -->
