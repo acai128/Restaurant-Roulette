@@ -6,8 +6,9 @@
 <a href="/" class="lead backlink">Go back to the search homepage</a>
 
     <h1>Try this out!</h1> 
-<!--     <pre>{{ pformat(data) }}</pre>
- -->
+
+    {# <pre>{{ pformat(data) }}</pre> #}
+
     <div>
         <h2> {{ name }} </h2>
     </div>
@@ -32,11 +33,21 @@
         <a href="{{ url }}" target='_blank'> Check out the reviews on Yelp! </a>
     </div>
 
-  <!--   <div>
+    {# <div>
         {{ transactions }}
-    </div>
+    </div> #}
 
- -->
+    {# <form>
+        <button form action="/create_favorite" method="POST" input type="submit">Add to favorite list</button>
+    </form> #}
+
+    {# <button type="submit" class="btn btn-default">Submit</button>  #}
+
+     <a class="btn btn-primary" href="/create_favorite">
+                    Add to favorite list
+    </a>
+
+
 
 
 {% endblock %}

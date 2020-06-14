@@ -129,6 +129,86 @@ def login_user():
         flash('Log in fail!')
         return redirect('/')
 
+
+@app.route('/create_favorite')
+def add_favorites(): 
+    """Add a restaurant to favorites list after pressing favorite button on 
+    /restaurant_results page"""
+    restaurant_id = request.args.get('restaurant_id')
+    # restaurant_id = request.form.get('restaurant_id')
+    user_id = session.get('user_id')
+
+    if not user_id: 
+        return ("Please log in to add to favorite list")
+
+    user = crud.get_user_by_id(user_id)
+    restaurant = crud.get_restaurant_by_id(restaurant_id)
+
+    if crud.check_favorite_exists(user, restaurant): 
+        return("This has already beena added to your favorites list!")
+
+    else: 
+
+        favorite_restaurant = crud.create_favorite(user, restaurant)
+        flash('added!')
+        return (favorite_restaurant, 'Added to favoites list')
+
+@app.route('/favorite_restaurants')
+def favorite_restaurant(): 
+    """Page to display a user's favorite restaurants"""
+
+    user_id = session.get('user_id')
+    if user_id: 
+        favorite_restaurants = crud.get_favorites_by_user_id(user_id)
+        return render_template('favorite_restaurants.html', 
+                                favorite_restaurants = favorite_restaurants)
+    else: 
+        flash('Please log in to see favorites list')
+        return redirect('/')
+
+# @app.route('/restaurant/<restaurant_id>')
+# def show_restaurant(restaurant_id): 
+
+#     restaurant = crud.get_restaurant(restaurant_id)
+#     print(restaurant)
+
+#     return render_template("restaurant_result.html", restaurant=restaurant)
+
+
+# @app.route('/add_favorites')
+# def add_favorites(): 
+#     """Add a restaurant to favorites list after pressing favorite button on 
+#     /restaurant_results page"""
+
+#     #restaurant id comes from the user (attached to fave button)
+#     restaurant_id = request.args.get('restaurant_id')
+
+#     if not user_id: 
+#         return ("Please log in to add to fave restaurant list")
+
+#     user = crud.get_user_by_id(user_id)
+#     restaurant = crud.get_restaurant(restaurant_id)
+
+#     #create new fave restaurant in database 
+#     crud.create_favorite(user, restaurant)
+
+#     return (restaurant.name + "added to fave restaurants")
+
+# @app.route('/favorite_restaurants')
+# def favorite_restaurant(): 
+#     """Show the user's fave restaurant list"""
+
+#     user_id = session.get('user_id')
+#     if user_id: 
+#         favorite_restaurants = crud.create_favorite(user_id)
+#         return render_template('favorite_restaurants.html', favorite_restaurants
+#                                 = favorite_restaurants)
+
+#     else: 
+#         flash('Log in to see fave restaurants')
+#         return redirect('/')
+
+
 # @app.route('/restaurant_result/<location>/<term>')
 # def results(location = '', term = 'restaurant'):
 #     business = get_restaurants(location, term)
