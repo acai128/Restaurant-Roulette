@@ -9,12 +9,7 @@ import os
 import requests 
 from pprint import pformat
 import json
-# from config import Config
-#from forms import SearchForm
 
-
-from yelp_api import get_data
-import urllib.parse 
 from random import randint
 import random 
 
@@ -67,8 +62,8 @@ def get_restaurants():
     address = ' '.join(business['location']['display_address'])
     url = business['url']
     phone = business['display_phone']
-    transactions = business['transactions']
-
+    # transactions = business['transactions']
+    restaurant_id = business['id']
 
     # for biz in data['businesses']: 
     #     if len(data) == 0: 
@@ -84,15 +79,16 @@ def get_restaurants():
     #     display_phone = biz['display_phone'], 
     #     name = biz['name'], 
     #     display_address = biz['location']['display_address'],
-    #     transactions = biz['transactions'], 
+        # transactions = biz['transactions'], 
     #     url = biz['url'], 
     #     image_url = biz['image_url']
     #     print(f'{data}')
 
     return render_template('restaurant_result.html', pformat=pformat, 
                             data=business, name=name, image=image, 
-                            rating=rating, address=address, url=url,
-                            transactions=transactions)
+                            rating=rating, address=address, url=url, 
+                            restaurant_id=restaurant_id,
+                            phone=phone)
 
 
 @app.route('/users', methods=['POST'])
@@ -130,41 +126,77 @@ def login_user():
         return redirect('/')
 
 
-@app.route('/create_favorite')
+@app.route('/create_favorite', methods=['POST'])
 def add_favorites(): 
     """Add a restaurant to favorites list after pressing favorite button on 
     /restaurant_results page"""
-    restaurant_id = request.args.get('restaurant_id')
     # restaurant_id = request.form.get('restaurant_id')
+    restaurant_id = request.form['restaurant_id']
+    print('*****')
+    print(request.form)
+    print('*****')
+    print(restaurant_id)
+    # grab the restaurant object, JSON, crud_restaurant, make rest. ob, post data
+
+    # restaurant_id = request.args.get('restaurant_id')
     user_id = session.get('user_id')
 
     if not user_id: 
         return ("Please log in to add to favorite list")
 
     user = crud.get_user_by_id(user_id)
-    restaurant = crud.get_restaurant_by_id(restaurant_id)
+    # # restaurant = crud.create_restaurant(restaurant_id, display_address, display_phone,
+    #                                     transactions, url, image_url)
+    #restaurant.restaurant_id 
 
-    if crud.check_favorite_exists(user, restaurant): 
-        return("This has already beena added to your favorites list!")
+    if crud.check_favorite_exists(user, restaurant_id): 
+        return("This has already been added to your favorites list!")
 
     else: 
+        restaurant = crud.get_restaurant_by_id(restaurant_id)
+        if restaurant: 
+            favorite_restaurant = crud.create_favorite(user, restaurant)
+            flash('added!')
+        else: 
+            restaurant = crud.create_restaurant(restaurant_id=restaurant_id, 
+                name = request.form['name'], 
+                display_address = request.form['address'], 
+                display_phone = request.form['phone'], 
+                # transactions = request.form['transactions'], 
+                url = request.form['url'], 
+                image_url = request.form['image'])
+            favorite_restaurant = crud.create_favorite(user, restaurant)
+            flash('added!')
 
-        favorite_restaurant = crud.create_favorite(user, restaurant)
-        flash('added!')
-        return (favorite_restaurant, 'Added to favoites list')
+        return redirect('/favorite_restaurants')
+
+
 
 @app.route('/favorite_restaurants')
 def favorite_restaurant(): 
     """Page to display a user's favorite restaurants"""
 
-    user_id = session.get('user_id')
-    if user_id: 
-        favorite_restaurants = crud.get_favorites_by_user_id(user_id)
-        return render_template('favorite_restaurants.html', 
-                                favorite_restaurants = favorite_restaurants)
-    else: 
-        flash('Please log in to see favorites list')
-        return redirect('/')
+    user_id = session['user_id']
+    favorite_restaurants = crud.get_favorites_by_user_id(user_id)
+
+    return render_template('favorite_restaurants.html', 
+                            favorite_restaurants = favorite_restaurants)
+    
+
+
+# @app.route('/favorite_restaurants')
+# def favorite_restaurant(): 
+#     """Page to display a user's favorite restaurants"""
+
+#     user_id = session.get('user_id')
+#     if user_id: 
+#         favorite_restaurants = crud.get_favorites_by_user_id(user_id)
+#         return render_template('favorite_restaurants.html', 
+#                                 favorite_restaurants = favorite_restaurants)
+#     else: 
+#         flash('Please log in to see favorites list')
+#         return redirect('/')
+
 
 # @app.route('/restaurant/<restaurant_id>')
 # def show_restaurant(restaurant_id): 

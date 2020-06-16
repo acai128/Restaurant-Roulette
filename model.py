@@ -46,10 +46,10 @@ class Favorite(db.Model):
                 primary_key = True)
 
     user_id = db.Column(db.Integer, 
-                        db.ForeignKey('users.user_id'))
+                        db.ForeignKey('users.user_id'), nullable = False)
 
-    restaurant_id = db.Column(db.Integer, 
-                    db.ForeignKey('restaurants.restaurant_id'))
+    restaurant_id = db.Column(db.String, 
+                    db.ForeignKey('restaurants.restaurant_id'), nullable = False)
     
 
     user = db.relationship('User', backref='favorites')
@@ -57,21 +57,20 @@ class Favorite(db.Model):
 
 def __repr__(self): 
 
-    return f'<Favorite favorite_id={self.favorite_id}>'
-
+    return f'<Favorite favorite_id={self.favorite_id} user_id={self.user_id}\
+            trail_id={self.trail_id}>'
 
 class Restaurant(db.Model): 
 
     __tablename__ = "restaurants"
 
 
-    restaurant_id = db.Column(db.Integer, 
-                autoincrement = True, 
+    restaurant_id = db.Column(db.String, 
                 primary_key = True)
     name = db.Column(db.String, nullable = False)
     display_address = db.Column(db.String, nullable = False)
     display_phone = db.Column(db.String, nullable = False)
-    transactions = db.Column(db.Boolean, nullable = False)
+    # transactions = db.Column(db.Boolean, nullable = False)
     url = db.Column(db.String, nullable = False)
     image_url = db.Column(db.String, nullable = False)
 
@@ -79,7 +78,29 @@ def __repr__(self):
 
     return f'<Restaurant restaurant_id={self.restaurant_id} name={self.name}\
     display_address={self.display_address} display_phone={self.display_phone} \
-    transactions={self.transactions} url={self.url} image_url={self.image_url}>'
+    url={self.url} image_url={self.image_url}>'
+
+
+# class Restaurant(db.Model): 
+
+#     __tablename__ = "restaurants"
+
+
+#     restaurant_id = db.Column(db.Integer, 
+#                 autoincrement = True, 
+#                 primary_key = True)
+#     name = db.Column(db.String, nullable = False)
+#     display_address = db.Column(db.String, nullable = False)
+#     display_phone = db.Column(db.String, nullable = False)
+#     transactions = db.Column(db.Boolean, nullable = False)
+#     url = db.Column(db.String, nullable = False)
+#     image_url = db.Column(db.String, nullable = False)
+
+# def __repr__(self): 
+
+#     return f'<Restaurant restaurant_id={self.restaurant_id} name={self.name}\
+#     display_address={self.display_address} display_phone={self.display_phone} \
+#     transactions={self.transactions} url={self.url} image_url={self.image_url}>'
 
 ##############################################################################
 # Helper functions

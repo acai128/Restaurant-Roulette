@@ -33,19 +33,35 @@
         <a href="{{ url }}" target='_blank'> Check out the reviews on Yelp! </a>
     </div>
 
+    <div>
+        Restaurant ID: {{ restaurant_id }}
+    </div>
+
     {# <div>
         {{ transactions }}
     </div> #}
 
-    {# <form>
-        <button form action="/create_favorite" method="POST" input type="submit">Add to favorite list</button>
-    </form> #}
+   <form action="/create_favorite" method="POST">
+        <button  input type="submit">
+        <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}"/>
+        <input type="hidden" name="name" value="{{ name }}"/>
+        <input type="hidden" name="image" value="{{ image }}"/>
+        <input type="hidden" name="rating" value="{{ rating }}"/>
+        <input type="hidden" name="address" value="{{ address }}"/>
+        <input type="hidden" name="url" value="{{ url }}"/>
+        <input type="hidden" name="phone" value="{{ phone }}"/>
+    
+
+        Add to favorite list</button>
+    </form> 
+
+
 
     {# <button type="submit" class="btn btn-default">Submit</button>  #}
 
-     <a class="btn btn-primary" href="/create_favorite">
+    {# <a class="btn btn-primary" href="/create_favorite">
                     Add to favorite list
-    </a>
+    </a> #}
 
 
 

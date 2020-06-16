@@ -2,11 +2,12 @@
 
 from model import db, User, Favorite, Restaurant, connect_to_db
 
-#Functions start here!
-
-
+# *******************
+# USER CRUD FUNCTIONS:
+# *******************
 
 def create_user(email, password):
+    """Create and return a new user"""
 
     user = User(email=email, password=password)
     db.session.add(user)
@@ -20,13 +21,17 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 def get_user_by_id(user_id):
+    """Return a user by id"""
     return db.session.query(User).get(user_id)
 
+# *******************
+# FAVORITE CRUD FUNCTIONS:
+# *******************
 
 def create_favorite(user, restaurant):
     """Create and return a favorited trail."""
 
-    favorite = Favorite(user = user, restaurant = restaurant)
+    favorite = Favorite(user = user, restaurant= restaurant)
 
     db.session.add(favorite)
     db.session.commit()
@@ -38,17 +43,21 @@ def get_favorites_by_user_id(user_id):
     """Return all favorites on list"""
     return db.session.query(Favorite).filter(Favorite.user_id == user_id).all()
 
-def check_favorite_exists(user, restaurant):
+def check_favorite_exists(user, restaurant_id):
     return db.session.query(Favorite).filter(Favorite.user == user, 
-                            Favorite.restaurant == restaurant).first()
+                            Favorite.restaurant_id == restaurant_id).first()
 
-def get_restaurant(name, display_address, display_phone, transactions, url, image_url): 
-    """Create and return a new rating"""
 
-    restaurant = Restaurant(name=name, 
+# *******************
+# RESTAURANT CRUD FUNCTIONS:
+# *******************
+
+def create_restaurant(restaurant_id,name, display_address, display_phone, url, image_url): 
+    """Create and return a new restaurant"""
+
+    restaurant = Restaurant( restaurant_id = restaurant_id, name=name, 
                 display_address=display_address, 
-                display_phone=display_phone, 
-                transactions=transactions,
+                display_phone=display_phone,
                 url=url,
                 image_url=image_url)
 
@@ -56,6 +65,10 @@ def get_restaurant(name, display_address, display_phone, transactions, url, imag
     db.session.commit()
 
     return restaurant
+
+def all_restaurants(): 
+    """Return all restaurants in db"""
+    return db.session.query(Restaurant).all()
 
 def get_restaurant_by_id(restaurant_id): 
     return db.session.query(Restaurant).get(restaurant_id)
