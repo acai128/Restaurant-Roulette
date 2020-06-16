@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}  {% endblock %}
+{% block content %}
+
+<a href="/" class="lead backlink">Go back to the search homepage</a>
+
+
+    <h1>My Faves List!</h1> 
+    {% for favorite in favorite_restaurants %}
+        <div>
+            <ul>
+            {{ favorite.restaurant.name }},
+            {# <img src='{{ image }}' height = "400px" width = "auto"> #}
+             {# Rating: {{  favorite.rating }} #}
+            {{  favorite.restaurant.display_address }},
+            {{  favorite.restaurant.display_phone }},
+            <a href="{{ favorite.restaurant.url }}" target='_blank'> Check out the reviews on Yelp! </a>
+            </ul>
+        </div>
+
+            
+    {% endfor %}
+
+{% endblock %}
