@@ -29,11 +29,9 @@ def homepage():
 
 @app.route('/restaurant_result', methods = ['GET'])
 def get_restaurants(): 
-    """Show restuarnt results"""
+    """Show a random restuarnt result"""
 
     location = request.args['location']
-    # print(location)
-    # print(type(location))
 
 
     url = 'https://api.yelp.com/v3/businesses/search'
@@ -53,16 +51,13 @@ def get_restaurants():
 
     business_list = data['businesses']
     business= random.choice(business_list)
-    # business = select.random(business_list)
 
     name = business['name']
-    # print(name)
     image = business['image_url']
     rating = business['rating']
     address = ' '.join(business['location']['display_address'])
     url = business['url']
     phone = business['display_phone']
-    # transactions = business['transactions']
     restaurant_id = business['id']
 
     # for biz in data['businesses']: 
@@ -97,7 +92,7 @@ def register_user():
     password = request.form.get("password")
 
     result = crud.get_user_by_email(email)
-    print('hello', result)
+    # print('hello', result)
     if result: 
 
         flash('Cannot create an account with that email. Try again.')
@@ -129,25 +124,16 @@ def login_user():
 @app.route('/create_favorite', methods=['POST'])
 def add_favorites(): 
     """Add a restaurant to favorites list after pressing favorite button on 
-    /restaurant_results page"""
-    # restaurant_id = request.form.get('restaurant_id')
-    restaurant_id = request.form['restaurant_id']
-    print('*****')
-    print(request.form)
-    print('*****')
-    print(restaurant_id)
-    # grab the restaurant object, JSON, crud_restaurant, make rest. ob, post data
+    restaurant_results page"""
 
-    # restaurant_id = request.args.get('restaurant_id')
+    restaurant_id = request.form['restaurant_id']
+
     user_id = session.get('user_id')
 
     if not user_id: 
         return ("Please log in to add to favorite list")
 
     user = crud.get_user_by_id(user_id)
-    # # restaurant = crud.create_restaurant(restaurant_id, display_address, display_phone,
-    #                                     transactions, url, image_url)
-    #restaurant.restaurant_id 
 
     if crud.check_favorite_exists(user, restaurant_id): 
         return("This has already been added to your favorites list!")
@@ -162,7 +148,6 @@ def add_favorites():
                 name = request.form['name'], 
                 display_address = request.form['address'], 
                 display_phone = request.form['phone'], 
-                # transactions = request.form['transactions'], 
                 url = request.form['url'], 
                 image_url = request.form['image'])
             favorite_restaurant = crud.create_favorite(user, restaurant)
