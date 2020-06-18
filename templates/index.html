@@ -4,31 +4,42 @@
 
 {% block content %}
 
+<center>
+
         <h1>Can't decide where to eat?</h1>
         <h2>Find a random restaurant near you!</h2>
 
-    <form method="GET"/action="/restaurant_result">
-    Location <input id='location' type="text" name="location">
-    <input type="submit">
-    </form>
+        <div class="load">
+          <img id="loading" src="/static/roulette3.png" width="400px" height="auto">
+        </div>
+</center>
+  <div class="text-center">
+      <form method="GET"/action="/restaurant_result">
+        Location <input id='location' type="text" name="location">
+        <input type="submit" class="btn btn-primary">
+      </form>
+  </div>
 
-
+<div>
   <h2>Create an Account</h2>
   <form action="/users" method="POST">
     <p>
       Email <input type="text" name="email">
     </p>
 
+
     <p>
       Password <input type="password" name="password">
     </p>
 
     <p>
-      <input type="submit">
+      <input type="submit" class="btn btn-primary">
     </p>
     </form>  
+</div>
 
-<h2>Log In</h2>
+<div>
+  <h2>Log In</h2>
   <form action="/user_login">
     <p>
       Email <input type="text" name="email">
@@ -39,9 +50,29 @@
     </p>
 
     <p>
-      <input type="submit">
+      <input type="submit" class="btn btn-primary">
     </p>
   </form>
+
+
+
+{# </div>
+  <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form> #}
 
   {% endblock %}
 
