@@ -4,23 +4,24 @@
 
 {% block content %}
 
-<center>
+<div id="topleft">
 
-        <h1>Can't decide where to eat?</h1>
-        <h2>Find a random restaurant near you!</h2>
+        <h1>Restaurant Roulette</h1>
+        <h3>Can't decide where to eat?</h3>
+        <h3>Find a random restaurant near you!</h3>
 
-        <div class="load">
+        <div>
           <img id="loading" src="/static/roulette3.png" width="400px" height="auto">
         </div>
-</center>
-  <div class="text-center">
+
+  
       <form method="GET"/action="/restaurant_result">
         Location <input id='location' type="text" name="location">
         <input type="submit" class="btn btn-primary">
       </form>
   </div>
 
-<div>
+<div id="topright">
   <h2>Create an Account</h2>
   <form action="/users" method="POST">
     <p>
@@ -36,9 +37,8 @@
       <input type="submit" class="btn btn-primary">
     </p>
     </form>  
-</div>
 
-<div>
+
   <h2>Log In</h2>
   <form action="/user_login">
     <p>
@@ -53,6 +53,9 @@
       <input type="submit" class="btn btn-primary">
     </p>
   </form>
+
+  </div>
+
 
 
 
