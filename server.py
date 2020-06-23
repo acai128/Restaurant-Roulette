@@ -30,6 +30,7 @@ def homepage():
 @app.route('/restaurant_result', methods = ['GET'])
 def get_restaurants(): 
     """Show a random restuarnt result"""
+   
 
     location = request.args['location']
 
@@ -41,7 +42,7 @@ def get_restaurants():
      
     params = {'term':'restaurant',
             'location': location,
-            'limit': 10}
+            'limit': 1}
  
      
     req = requests.get(url, params=params, headers=headers)
@@ -78,6 +79,17 @@ def get_restaurants():
     #     url = biz['url'], 
     #     image_url = biz['image_url']
     #     print(f'{data}')
+
+    # return jsonify(business['name'],
+    # image = business['image_url']
+    # rating = business['rating']
+    # address = ' '.join(business['location']['display_address']),
+    # url = business['url'],
+    # phone = business['display_phone'])
+
+    # return jsonify(business)
+    # print(jsonify(business))
+
 
     return render_template('restaurant_result.html', pformat=pformat, 
                             data=business, name=name, image=image, 
@@ -125,6 +137,8 @@ def login_user():
 def add_favorites(): 
     """Add a restaurant to favorites list after pressing favorite button on 
     restaurant_results page"""
+    import pdb; pdb.set_trace()
+
 
     restaurant_id = request.form['restaurant_id']
 
@@ -145,15 +159,21 @@ def add_favorites():
             flash('added!')
         else: 
             restaurant = crud.create_restaurant(restaurant_id=restaurant_id, 
-                name = request.form['name'], 
-                display_address = request.form['address'], 
-                display_phone = request.form['phone'], 
-                url = request.form['url'], 
-                image_url = request.form['image'])
+                name = request.form.get('name'), 
+                display_address = request.form.get('address'), 
+                display_phone = request.form.get('phone'), 
+                url = request.form.get('url'), 
+                image_url = request.form.get('image'))
             favorite_restaurant = crud.create_favorite(user, restaurant)
             flash('added!')
 
-        return redirect('/favorite_restaurants')
+        # return redirect('/favorite_restaurants')
+
+        return jsonify({'name': name, 
+                        'address': address, 
+                        'phone' : phone, 
+                        'url': url, 
+                        'image_url': image_url})
 
 
 
