@@ -42,7 +42,7 @@ def get_restaurants():
      
     params = {'term':'restaurant',
             'location': location,
-            'limit': 1}
+            'limit': 20}
  
      
     req = requests.get(url, params=params, headers=headers)
@@ -137,10 +137,15 @@ def login_user():
 def add_favorites(): 
     """Add a restaurant to favorites list after pressing favorite button on 
     restaurant_results page"""
-    import pdb; pdb.set_trace()
+    
 
 
-    restaurant_id = request.form['restaurant_id']
+    restaurant_id = request.form.get('restaurant_id')
+    name = request.form.get('name')
+    display_address = request.form.get('address')
+    display_phone = request.form.get('phone') 
+    url = request.form.get('url')
+    image_url = request.form.get('image')
 
     user_id = session.get('user_id')
 
@@ -169,11 +174,11 @@ def add_favorites():
 
         # return redirect('/favorite_restaurants')
 
-        return jsonify({'name': name, 
-                        'address': address, 
-                        'phone' : phone, 
-                        'url': url, 
-                        'image_url': image_url})
+    return jsonify({'name': name, 
+                    'address': display_address, 
+                    'phone' : display_phone, 
+                    'url': url, 
+                    'image_url': image_url})
 
 
 

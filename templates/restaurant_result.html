@@ -45,18 +45,19 @@
     <button id="get_new_result" class="btn-primary">Click to get new result</button>
     </p>
 
-   <form >
-        <button id="favorite_btn"  input type="submit" class="btn btn-primary">
-        <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}"/>
+   <form id="add_fav">
+
+        <input type="hidden" id="restaurant_id" name="restaurant_id" value="{{ restaurant_id }}"/>
         <input id="name" type="hidden" name="name" value="{{ name }}"/>
         <input id="image" type="hidden" name="image" value="{{ image }}"/>
         <input id="rating" type="hidden" name="rating" value="{{ rating }}"/>
         <input id="address" type="hidden" name="address" value="{{ address }}"/>
         <input id="url" type="hidden" name="url" value="{{ url }}"/>
         <input id= "phone" type="hidden" name="phone" value="{{ phone }}"/>
-        Add to favorite list</button>
+        <button id="favorite_btn"  input type="submit" class="btn btn-primary">Add to favorite list</button>
     </form> 
 
+    <div id="#duplicate"></div>
     <div id="list_content">
         
     </div>
