@@ -10,26 +10,26 @@
     {# <pre>{{ pformat(data) }}</pre> #}
 
     <div>
-        <h2> {{ name }} </h2>
+        <h2 id="rest_name"> {{ name }} </h2>
     </div>
 
-    <div>
+    <div id="photo">
         <img src='{{ image }}' height = "400px" width = "auto">
     </div>
 
-    <div>
+    <div id="rest_rating">
         Rating: {{ rating }}
     </div>
 
-    <div>
+    <div id="addy">
         {{ address }}
     </div>
 
-    <div>
+    <div id="phone_num">
         {{ data['display_phone'] }}
     </div>
 
-    <div>
+    <div id="reviews">
         <a href="{{ url }}" target='_blank'> Check out the reviews on Yelp! </a>
     </div>
 
@@ -40,6 +40,8 @@
     {# <div>
         {{ transactions }}
     </div> #}
+
+
 
     <p>
     <button id="get_new_result" class="btn-primary">Click to get new result</button>
@@ -57,7 +59,7 @@
         <button id="favorite_btn"  input type="submit" class="btn btn-primary">Add to favorite list</button>
     </form> 
 
-    <div id="#duplicate"></div>
+    <div id="#duplicate_msg"></div>
     <div id="list_content">
         
     </div>

@@ -17,16 +17,17 @@ $('#add_fav').on('submit', (evt) => {
 
 // console.log(formInputs)
 $.post('/create_favorite', formInputs, (response) => {
-    // console.log(response);
+    console.log(response);
     // console.log(response.name)
 
-    if(response.length = 0)
+    //if(response.length = 0)
     $('#list_content').append(`
       <li>${response.name} ${response.address} ${response.phone} ${response.url} 
       </li>
     `);
   });
-    // else {$
+    // else {("#duplicate_msg").html("This has already been added to your favorites \
+    //     list!"); 
 
     // }
   return "This has already been added to your favorites list!!!!"; 
@@ -37,10 +38,18 @@ $.post('/create_favorite', formInputs, (response) => {
 $('#get_new_result').on('click', (evt) => {
     // evt.preventDefault();
     console.log('get new result clicked')
-  $.get('/restaurant_result', (response) => {
-    $('#restaurant_result').html(response);
+  $.get('/new_result', (response) => {
+    console.log(response)
+    $("#rest_name").html(response.name)
+    $("#photo").html(response.image_url)
+    $("#rest_rating").html(response.rating)
+    $("#addy").html(response.address)
+    $("#phone_num").html(response.phone)
+    $("#reviews").html(response.url)
   });
 });
+
+// $("#reviews").html("<a href='google.com' target='_blank'> Hi </a>")
 
 
 //if no fields are entered in log in fields, show error message 

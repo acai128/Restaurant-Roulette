@@ -33,6 +33,17 @@ def get_restaurants():
    
 
     location = request.args['location']
+    print(location)
+    session['location'] = location
+    print(session)
+    # restaurant_id = request.form.get('restaurant_id')
+    # name = request.form.get('name')
+    # display_address = request.form.get('address')
+    # display_phone = request.form.get('phone') 
+    # url = request.form.get('url')
+    # image_url = request.form.get('image')
+
+
 
 
     url = 'https://api.yelp.com/v3/businesses/search'
@@ -80,15 +91,22 @@ def get_restaurants():
     #     image_url = biz['image_url']
     #     print(f'{data}')
 
-    # return jsonify(business['name'],
-    # image = business['image_url']
-    # rating = business['rating']
-    # address = ' '.join(business['location']['display_address']),
-    # url = business['url'],
-    # phone = business['display_phone'])
+    # return jsonify(business['name'])
+
+    # return jsonify({'name': name, 
+    #                 'image_url': image_url
+    #                 'location'{'display_address'}: address, 
+    #                 'phone' : display_phone, 
+    #                 'url': url
+    #                 })
 
     # return jsonify(business)
-    # print(jsonify(business))
+
+    # return jsonify({'name': name, 
+    #                 'address': display_address, 
+    #                 'phone' : display_phone, 
+    #                 'url': url, 
+    #                 'image_url': image_url})
 
 
     return render_template('restaurant_result.html', pformat=pformat, 
@@ -96,6 +114,54 @@ def get_restaurants():
                             rating=rating, address=address, url=url, 
                             restaurant_id=restaurant_id,
                             phone=phone)
+
+@app.route('/new_result', methods = ['GET'])
+def get_new_restaurants(): 
+    """Show a random restuarnt result"""
+   
+
+    location = session['location']
+    # restaurant_id = request.form.get('restaurant_id')
+    # name = request.form.get('name')
+    # display_address = request.form.get('address')
+    # display_phone = request.form.get('phone') 
+    # url = request.form.get('url')
+    # image_url = request.form.get('image')
+
+    print(location)
+
+
+    url = 'https://api.yelp.com/v3/businesses/search'
+
+    api_key = API_KEY
+    headers = {'Authorization': 'Bearer %s' % api_key}
+     
+    params = {'term':'restaurant',
+            'location': location,
+            'limit': 1}
+ 
+     
+    req = requests.get(url, params=params, headers=headers)
+     
+    data = req.json()
+    print(data) 
+
+    business_list = data['businesses']
+    business= random.choice(business_list)
+
+    name = business['name']
+    image = business['image_url']
+    rating = business['rating']
+    address = ' '.join(business['location']['display_address'])
+    url = business['url']
+    phone = business['display_phone']
+    restaurant_id = business['id']
+
+    return jsonify({'name': name, 
+                    'address': address, 
+                    'phone' : phone, 
+                    'url': url, 
+                    'image_url': image})
 
 
 @app.route('/users', methods=['POST'])
