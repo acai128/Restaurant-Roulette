@@ -41,15 +41,24 @@ $('#get_new_result').on('click', (evt) => {
   $.get('/new_result', (response) => {
     console.log(response)
     $("#rest_name").html(response.name)
-    $("#photo").html(response.image_url)
+    $("#photo").html(`<img src=${response.image_url} height = "400px" 
+                    width = "auto">`)
     $("#rest_rating").html(response.rating)
     $("#addy").html(response.address)
     $("#phone_num").html(response.phone)
-    $("#reviews").html(response.url)
+    $("#reviews").html(`<a href=${response.url}>Check out the reviews on 
+                        Yelp!</a>`)
   });
 });
 
+
 // $("#reviews").html("<a href='google.com' target='_blank'> Hi </a>")
+
+
+// $('#results').html('<a href="'+results.items[randNum].html_url+'">'+results.items[randNum].login+
+//               '</a><br><img src="'+results.items[randNum].avatar_url+'" class="avatar">')
+
+
 
 
 //if no fields are entered in log in fields, show error message 
