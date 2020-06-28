@@ -3,13 +3,18 @@
 {% block title %}  {% endblock %}
 {% block content %}
 
+<div class="container">
+
+    <div  class="row">
+        <div class="col-md-6">
+
 <a href="/" class="lead backlink">Go back to the search homepage</a>
-<center>
+
     <h1>Try this out!</h1> 
 
     {# <pre>{{ pformat(data) }}</pre> #}
 
-    <div>
+    <div> 
         <h2 id="rest_name"> {{ name }} </h2>
     </div>
 
@@ -44,33 +49,36 @@
 
 
     <p>
-    <button id="get_new_result" class="btn-primary">Click to get new result</button>
+        <button id="get_new_result" class="btn-primary">Click to get new result
+        </button>
     </p>
 
    <form id="add_fav">
 
-        <input type="hidden" id="restaurant_id" name="restaurant_id" value="{{ restaurant_id }}"/>
+        <input type="hidden" id="restaurant_id" name="restaurant_id" 
+                value="{{ restaurant_id }}"/>
         <input id="name" type="hidden" name="name" value="{{ name }}"/>
         <input id="image" type="hidden" name="image" value="{{ image }}"/>
         <input id="rating" type="hidden" name="rating" value="{{ rating }}"/>
         <input id="address" type="hidden" name="address" value="{{ address }}"/>
         <input id="url" type="hidden" name="url" value="{{ url }}"/>
         <input id= "phone" type="hidden" name="phone" value="{{ phone }}"/>
-        <button id="favorite_btn"  input type="submit" class="btn btn-primary">Add to favorite list</button>
+        <button id="favorite_btn"  input type="submit" class="btn btn-primary">
+        Add to favorite list</button>
     </form> 
 
     <div id="#duplicate_msg"></div>
-    <div id="list_content">
-        
+
     </div>
 
-</center>
+        <div class="col-md-6">
+  
+        <h2>My Favorite list</h2> 
+        <div id="list_content"></div>
+    </div>
+    </div>
+    </div>
 
-    {# <button type="submit" class="btn btn-default">Submit</button>  #}
-
-    {# <a class="btn btn-primary" href="/create_favorite">
-                    Add to favorite list
-    </a> #}
 
 
 

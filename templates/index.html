@@ -4,14 +4,18 @@
 
 {% block content %}
 
+<div></div>
+
 <div id="topleft">
+
 
         <h1>Restaurant Roulette</h1>
         <h3>Can't decide where to eat?</h3>
         <h3>Find a random restaurant near you!</h3>
 
         <div>
-          <img id="loading" src="/static/roulette3.png" width="400px" height="auto">
+          <img id="loading" src="/static/roulette3.png" width="400px" 
+                height="auto">
         </div>
 
   
@@ -19,11 +23,15 @@
         Location <input id='location' type="text" name="location">
         <input type="submit" class="btn btn-primary">
       </form>
-  </div>
+
+    </div>
+  </div> 
 
 <div id="topright">
+
+  
   <h2>Create an Account</h2>
-  <form id="create_account" action="/users" method="POST">
+  <form class="form-inline" id="create_account" action="/users" method="POST">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -34,13 +42,13 @@
     </p>
 
     <p>
-      <input type="submit" class="btn btn-primary">
+      &nbsp<input type="submit" class="btn btn-primary">
     </p>
     </form>  
 
 
   <h2>Log In</h2>
-  <form id="login_form "action="/user_login">
+  <form class="form-inline "id="login_form "action="/user_login">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -50,34 +58,18 @@
     </p>
 
     <p>
-      <input type="submit" class="btn btn-primary">
+      &nbsp<input type="submit" class="btn btn-primary">
     </p>
   </form>
 
   <div id="error message"></div>
 
+
   </div>
 
 
 
 
-{# </div>
-  <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> #}
 
   {% endblock %}
 

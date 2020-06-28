@@ -22,3 +22,15 @@
     float:right;
     width:60%;
 }
+
+body {
+  background: url("food.png");
+  /*padding: 20px;*/
+  margin: 90px;
+}
+
+.btn-primary{
+    color: orange;
+    background-color: #712d2d;  
+    border-color: #841d1d; 
+}

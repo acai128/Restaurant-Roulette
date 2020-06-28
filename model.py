@@ -5,23 +5,6 @@ db = SQLAlchemy()
 
 #COMPOSE ORM 
 
-# class User(db.Model): 
-
-#     __tablename__ = "users"
-
-#     user_id = db.Column(db.Integer, 
-#                 autoincrement = True, 
-#                 primary_key = True)
-#     fname = db.Column(db.String, nullable = False)
-#     lname = db.Column(db.String, nullable = False)
-#     password = db.Column(db.String)
-#     email = db.Column(db.String, unique=True, nullable= False)
-
-
-#     def __repr__(self): 
-
-#         return f'<User user_id={self.user_id} fname={self.fname}\
-#             lname={self.lname} password={self.password} email={self.email}>'
 
 class User(db.Model):
     """A user."""
@@ -81,26 +64,7 @@ def __repr__(self):
     url={self.url} image_url={self.image_url}>'
 
 
-# class Restaurant(db.Model): 
 
-#     __tablename__ = "restaurants"
-
-
-#     restaurant_id = db.Column(db.Integer, 
-#                 autoincrement = True, 
-#                 primary_key = True)
-#     name = db.Column(db.String, nullable = False)
-#     display_address = db.Column(db.String, nullable = False)
-#     display_phone = db.Column(db.String, nullable = False)
-#     transactions = db.Column(db.Boolean, nullable = False)
-#     url = db.Column(db.String, nullable = False)
-#     image_url = db.Column(db.String, nullable = False)
-
-# def __repr__(self): 
-
-#     return f'<Restaurant restaurant_id={self.restaurant_id} name={self.name}\
-#     display_address={self.display_address} display_phone={self.display_phone} \
-#     transactions={self.transactions} url={self.url} image_url={self.image_url}>'
 
 ##############################################################################
 # Helper functions

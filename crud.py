@@ -73,30 +73,7 @@ def all_restaurants():
 def get_restaurant_by_id(restaurant_id): 
     return db.session.query(Restaurant).get(restaurant_id)
 
-# def create_user(fname, lname, password, email):
-#     """Create and return a new user."""
 
-#     user = User(fname=fname, lname=lname, password=password, email=email)
-
-#     db.session.add(user)
-#     db.session.commit()
-
-#     return user
-
-# def create_favorite(name, display_address, display_phone, transactions, url, image_url): 
-#     """Create and return a new favorite"""
-
-#     favorite = Favorite(name=name, 
-#                 display_address=display_address, 
-#                 display_phone=display_phone, 
-#                 transactions=transactions,
-#                 url=url,
-#                 image_url=image_url)
-
-#     db.session.add(favorite)
-#     db.session.commit()
-
-#     return favorite
 
 
 if __name__ == '__main__':
