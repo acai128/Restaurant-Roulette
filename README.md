@@ -5,7 +5,7 @@ Restaurant Roulette generates a random restaurant based on the location that a u
 ## Installation 
 
 * Clone the repo to your local machine 
-* Get an API key from [https://www.yelp.com/developers/documentation/v3/get_started], 
+* Get an API key from https://www.yelp.com/developers/documentation/v3/get_started, 
 in project's main folder, create a secrets.sh file with export YELP_KEY="YOUR_API"in it, "YOUR API" is where you will put the API key you got from the yelp developer page 
 
 ```python
