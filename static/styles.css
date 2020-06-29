@@ -27,10 +27,22 @@ body {
   background: url("food.png");
   /*padding: 20px;*/
   margin: 90px;
+  font-family: "Quattrocento", sans-serif; 
+  color: #79594d;
 }
 
 .btn-primary{
     color: orange;
     background-color: #712d2d;  
     border-color: #841d1d; 
+}
+
+h1 {
+ font-weight: bold; 
+}
+
+.jumbotron {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+
 }
