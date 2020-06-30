@@ -45,7 +45,7 @@ def get_restaurants():
      
     params = {'term':'restaurant',
             'location': location,
-            'limit': 20}
+            'limit': 50}
  
      
     req = requests.get(url, params=params, headers=headers)
