@@ -15,6 +15,14 @@ Restaurant Roulette generates a random restaurant based on the location that a u
 * jQuery 
 * Yelp API 
 
+## Features 
+
+#Homepage 
+
+User enters city or zip code in location field 
+![](recording.gif)
+
+
 ## Installation 
 
 * Clone the repo to your local machine: 
