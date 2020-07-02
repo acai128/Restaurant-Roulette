@@ -27,7 +27,7 @@ body {
   background: url("food.png");
   /*padding: 20px;*/
   margin: 90px;
-  font-family: "Quattrocento", sans-serif; 
+  font-family: Quattrocento, sans-serif; 
   color: #79594d;
 }
 
@@ -41,8 +41,12 @@ h1 {
  font-weight: bold; 
 }
 
-.jumbotron {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-
+.header {
+  padding: 40px;
+  text-align: center;
+  background: #CC6600;
+  color: white;
+  font-size: 30px;
+  font-family: open sans-serif;
 }
+

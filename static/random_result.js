@@ -22,7 +22,7 @@ $.post('/create_favorite', formInputs, (response) => {
 
     //if(response.length = 0)
     $('#list_content').append(`
-      <li>${response.name} ${response.address} ${response.phone} ${response.url} 
+      <li>${response.name} 
       </li>
     `);
   });
