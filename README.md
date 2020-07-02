@@ -17,10 +17,13 @@ Restaurant Roulette generates a random restaurant based on the location that a u
 
 ## Features 
 
-#Homepage 
+### Homepage 
 
-User enters city or zip code in location field 
-![](recording.gif)
+User enters city or zip code in location field to get a random restaurant 
+![](recording(2).gif)
+
+User can click on get new result button for new random result with AJAX 
+![](recording(3).gif)
 
 
 ## Installation 
