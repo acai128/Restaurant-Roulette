@@ -1,12 +1,12 @@
 # Restaurant Roulette 
 
-Restaurant Roulette generates a random restaurant based on the location that a user inputs 
+Restaurant Roulette generates a random restaurant based on the location that a user inputs and has the ability to add a restaurant to their favorite list as well. 
 
 ## Technologies 
 
 * Python 
 * Flask 
-* PostgresQL
+* PostgreSQL
 * SQLAlchemy
 * HTML 
 * CSS
