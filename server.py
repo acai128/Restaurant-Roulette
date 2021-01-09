@@ -18,7 +18,9 @@ app.secret_key = 'SECRET!'
 app.jinja_env.undefined = StrictUndefined
 
 
-API_KEY = os.environ['YELP_KEY']
+# API_KEY = os.environ['YELP_KEY']
+
+API_KEY = os.environ.get('YELP_KEY', None)
 
 @app.route('/')
 def homepage():
