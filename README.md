@@ -8,6 +8,7 @@ Restaurant Roulette generates a random restaurant based on the location that a u
 * Flask 
 * PostgreSQL
 * SQLAlchemy
+* Jinja 
 * HTML 
 * CSS
 * Bootstrap
